@@ -5,6 +5,7 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
 require 'gli'
 require 'starter'
+require 'byebug'
 
 include GLI::App
 
@@ -24,7 +25,8 @@ command :new do |c|
   c.flag [:p, :prefix],
          desc: 'sets the prefix of the API'
   c.flag [:o, :orm],
-         desc: 'create files for the specified ORM, available: sequel, activerecord (ar)'
+         desc: 'create files for the specified ORM, available: sequel, activerecord (ar)',
+         default_value: 'sequel'
 
   c.action do |global_options, options, args|
     dest = args.empty? ? nil : File.join(Dir.getwd, args.first)
@@ -58,8 +60,10 @@ arg_name 'resource [post* get* put* patch* delete*]'
 command :add do |c|
   c.switch [:e, :entity], negatable: false,
            desc: 'adds entity file'
+
   c.switch [:o, :orm], negatable: false,
            desc: 'inherit from ORM'
+
   c.switch [:m, :migration], negatable: false,
            desc: 'create also migration file'
 

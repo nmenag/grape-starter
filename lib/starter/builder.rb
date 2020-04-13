@@ -41,6 +41,7 @@ module Starter
         config_static.each do |config|
           replace_static(File.join(config[:file]), config[:pattern])
         end
+
         add_namespace_with_version
         Orms.build(destination, options[:orm]) if options[:orm]
 
